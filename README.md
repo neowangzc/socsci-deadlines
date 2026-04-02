@@ -1,3 +1,13 @@
+---
+title: Social Science Deadlines
+emoji: 📚
+colorFrom: purple
+colorTo: indigo
+sdk: docker
+app_port: 8080
+pinned: false
+---
+
 # Social Science Deadlines
 
 Countdowns to top social science conference, workshop & summer school deadlines.
