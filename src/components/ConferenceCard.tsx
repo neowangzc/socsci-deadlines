@@ -5,7 +5,7 @@ import ConferenceDialog from "./ConferenceDialog";
 import { useState } from "react";
 import { useTimezone } from "@/utils/timezoneContext";
 import { getDeadlineInLocalTime } from '@/utils/dateUtils';
-import { getNextUpcomingDeadline, getPrimaryDeadline } from '@/utils/deadlineUtils';
+import { getNextUpcomingDeadline, getNextUpcomingAnyDeadline, getPrimaryDeadline } from '@/utils/deadlineUtils';
 
 const EVENT_TYPE_STYLES: Record<string, string> = {
   conference: "bg-purple-100 text-purple-800",
@@ -47,6 +47,7 @@ const ConferenceCard = ({
   };
 
   const nextDeadline = getNextUpcomingDeadline(conference) || getPrimaryDeadline(conference);
+  const displayDeadline = getNextUpcomingAnyDeadline(conference) || nextDeadline;
   const deadlineDate = nextDeadline ? getDeadlineInLocalTime(nextDeadline.date, nextDeadline.timezone || timezone) : null;
 
   const getTimeRemaining = () => {
@@ -142,7 +143,7 @@ const ConferenceCard = ({
           <div className="flex items-center text-neutral">
             <Clock className="h-4 w-4 mr-2 flex-shrink-0" />
             <span className="text-sm truncate">
-              {nextDeadline ? `${nextDeadline.label}: ${nextDeadline.date}` : (deadline === 'TBD' ? 'TBD' : deadline)}
+              {displayDeadline ? `${displayDeadline.label}: ${displayDeadline.date}` : 'TBD'}
             </span>
           </div>
           <div className="flex items-center">

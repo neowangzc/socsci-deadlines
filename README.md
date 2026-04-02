@@ -20,7 +20,7 @@ Countdowns to top social science conference, workshop & summer school deadlines.
 - Calendar year view
 - Countdown to next submission deadline
 - Fee and funding/scholarship information
-- Add deadline to Google Calendar / Apple Calendar
+- Add deadline to Google Calendar / Apple Calendar as a reminder
 
 ## Data Structure
 

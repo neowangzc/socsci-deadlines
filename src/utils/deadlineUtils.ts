@@ -62,6 +62,26 @@ export function getNextUpcomingDeadline(conference: Conference): Deadline | null
 }
 
 /**
+ * Get the next upcoming deadline of any type (submission, notification, registration).
+ * Used for display on card when all submissions have passed.
+ */
+export function getNextUpcomingAnyDeadline(conference: Conference): Deadline | null {
+  const allDeadlines = getAllDeadlines(conference);
+  const upcoming = allDeadlines.filter(deadline => {
+    const deadlineDate = getDeadlineInLocalTime(deadline.date, deadline.timezone || conference.timezone);
+    return deadlineDate && isValid(deadlineDate) && !isPast(deadlineDate);
+  });
+  if (upcoming.length === 0) return null;
+  upcoming.sort((a, b) => {
+    const aDate = getDeadlineInLocalTime(a.date, a.timezone || conference.timezone);
+    const bDate = getDeadlineInLocalTime(b.date, b.timezone || conference.timezone);
+    if (!aDate || !bDate) return 0;
+    return aDate.getTime() - bDate.getTime();
+  });
+  return upcoming[0];
+}
+
+/**
  * Get the primary deadline for sorting purposes (next upcoming CFP or most recent past CFP)
  */
 export function getPrimaryDeadline(conference: Conference): Deadline | null {
