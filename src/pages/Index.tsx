@@ -35,7 +35,7 @@ const Index = () => {
   const [selectedCountries, setSelectedCountries] = useState<Set<string>>(new Set());
   const [selectedEventTypes, setSelectedEventTypes] = useState<Set<EventType>>(new Set());
   const [searchQuery, setSearchQuery] = useState("");
-  const [showPastConferences, setShowPastConferences] = useState(false);
+  const [showPastConferences, setShowPastConferences] = useState(true);
 
   const categoryButtons = useMemo(() => {
     if (!Array.isArray(conferencesData)) return [];
