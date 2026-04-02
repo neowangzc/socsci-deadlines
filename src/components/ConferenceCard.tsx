@@ -1,8 +1,9 @@
-import { CalendarDays, Globe, Tag, Clock, AlarmClock, GraduationCap, DollarSign } from "lucide-react";
+import { CalendarDays, Globe, Tag, Clock, AlarmClock } from "lucide-react";
 import { Conference } from "@/types/conference";
 import { formatDistanceToNow, isValid, isPast } from "date-fns";
 import ConferenceDialog from "./ConferenceDialog";
 import { useState } from "react";
+import { useTimezone } from "@/utils/timezoneContext";
 import { getDeadlineInLocalTime } from '@/utils/dateUtils';
 import { getNextUpcomingDeadline, getPrimaryDeadline } from '@/utils/deadlineUtils';
 
@@ -38,6 +39,7 @@ const ConferenceCard = ({
   ...conferenceProps
 }: Conference) => {
   const [dialogOpen, setDialogOpen] = useState(false);
+  const { timezone: _tz } = useTimezone(); // subscribe to timezone changes for re-render
 
   const conference = {
     title, full_name, year, date, deadline, timezone, tags, link, note,
@@ -149,18 +151,6 @@ const ConferenceCard = ({
               {timeRemaining}
             </span>
           </div>
-          {fee && (
-            <div className="flex items-center text-neutral">
-              <DollarSign className="h-4 w-4 mr-2 flex-shrink-0" />
-              <span className="text-sm truncate">{fee}</span>
-            </div>
-          )}
-          {funding && (
-            <div className="flex items-center text-emerald-600">
-              <GraduationCap className="h-4 w-4 mr-2 flex-shrink-0" />
-              <span className="text-sm truncate">{funding}</span>
-            </div>
-          )}
         </div>
 
         {Array.isArray(tags) && tags.length > 0 && (

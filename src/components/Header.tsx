@@ -1,10 +1,7 @@
-import { Search, BookOpen, Plus } from "lucide-react";
+import { Search, BookOpen } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { CalendarDays } from "lucide-react";
-import { useState } from "react";
-import SubmitEventDialog from "./SubmitEventDialog";
 
 interface HeaderProps {
   onSearch: (query: string) => void;
@@ -12,8 +9,6 @@ interface HeaderProps {
 }
 
 const Header = ({ onSearch, showEmptyMessage = false }: HeaderProps) => {
-  const [submitOpen, setSubmitOpen] = useState(false);
-
   return (
     <header className="bg-white border-b border-neutral-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -36,8 +31,8 @@ const Header = ({ onSearch, showEmptyMessage = false }: HeaderProps) => {
               </Link>
             </nav>
           </div>
-          <div className="flex items-center gap-3 w-full md:w-auto">
-            <div className="relative flex-1 md:w-64 lg:w-72">
+          <div className="w-full md:max-w-lg lg:max-w-xs">
+            <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 <Search className="h-5 w-5 text-neutral-400" />
               </div>
@@ -48,14 +43,6 @@ const Header = ({ onSearch, showEmptyMessage = false }: HeaderProps) => {
                 onChange={(e) => onSearch(e.target.value)}
               />
             </div>
-            <Button
-              size="sm"
-              className="bg-purple-600 hover:bg-purple-700 text-white gap-1 whitespace-nowrap"
-              onClick={() => setSubmitOpen(true)}
-            >
-              <Plus className="h-4 w-4" />
-              <span className="hidden sm:inline">Submit Event</span>
-            </Button>
           </div>
         </div>
         {showEmptyMessage && (
@@ -67,12 +54,20 @@ const Header = ({ onSearch, showEmptyMessage = false }: HeaderProps) => {
         )}
         <div className="max-w-4xl mx-auto text-center">
           <p className="text-sm text-neutral-600 py-4">
-            Countdowns to social science conference, workshop & summer school deadlines.
+            Countdowns to top social science conference, workshop & summer school deadlines.
+            <br />
+            To add or update an event, send in a{' '}
+            <a
+              href="https://github.com/neowangzc/socsci-deadlines"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary hover:underline"
+            >
+              pull request
+            </a>.
           </p>
         </div>
       </div>
-
-      <SubmitEventDialog open={submitOpen} onOpenChange={setSubmitOpen} />
     </header>
   );
 };

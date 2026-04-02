@@ -18,6 +18,7 @@ import {
 import { useState, useEffect } from "react";
 import { getDeadlineInLocalTime } from '@/utils/dateUtils';
 import { getAllDeadlines, getNextUpcomingDeadline, getUpcomingDeadlines, getDaysRemaining, getCountdownColorClass } from '@/utils/deadlineUtils';
+import { useTimezone } from "@/utils/timezoneContext";
 
 interface ConferenceDialogProps {
   conference: Conference;
@@ -26,10 +27,9 @@ interface ConferenceDialogProps {
 }
 
 const ConferenceDialog = ({ conference, open, onOpenChange }: ConferenceDialogProps) => {
-  console.log('Conference object:', conference);
-  
-  // Get upcoming deadlines and the next upcoming one
-  const upcomingDeadlines = getUpcomingDeadlines(conference);
+  const { timezone: _tz } = useTimezone(); // subscribe to timezone changes for re-render
+
+  const allDeadlines = getAllDeadlines(conference);
   const nextDeadline = getNextUpcomingDeadline(conference);
   const deadlineDate = nextDeadline ? getDeadlineInLocalTime(nextDeadline.date, nextDeadline.timezone || conference.timezone) : null;
   
@@ -60,7 +60,9 @@ const ConferenceDialog = ({ conference, open, onOpenChange }: ConferenceDialogPr
   useEffect(() => {
     const calculateTimeLeft = () => {
       if (!deadlineDate || !isValid(deadlineDate)) {
-        setCountdown('TBD');
+        // Check if there were any submission deadlines at all
+        const hasAnySubmission = allDeadlines.some(d => d.type === 'submission');
+        setCountdown(hasAnySubmission ? 'Deadline passed' : 'TBD');
         return;
       }
 
@@ -86,7 +88,10 @@ const ConferenceDialog = ({ conference, open, onOpenChange }: ConferenceDialogPr
   }, [deadlineDate]);
 
   const getCountdownColor = () => {
-    if (!deadlineDate || !isValid(deadlineDate)) return "text-neutral-600";
+    if (!deadlineDate || !isValid(deadlineDate)) {
+      const hasAnySubmission = allDeadlines.some(d => d.type === 'submission');
+      return hasAnySubmission ? "text-red-600" : "text-neutral-600";
+    }
     const daysRemaining = Math.ceil((deadlineDate.getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24));
     if (daysRemaining <= 7) return "text-red-600";
     if (daysRemaining <= 30) return "text-orange-600";
@@ -118,27 +123,26 @@ const ConferenceDialog = ({ conference, open, onOpenChange }: ConferenceDialogPr
 
   const createCalendarEvent = (type: 'google' | 'apple') => {
     try {
-      if (!conference.deadline || conference.deadline === 'TBD') {
-        throw new Error('No valid deadline found');
+      // Only add the next upcoming submission deadline to calendar
+      if (!nextDeadline) {
+        throw new Error('No upcoming submission deadline');
       }
+      const targetDeadline = nextDeadline;
 
-      // Parse the deadline date
-      const deadlineDate = parseISO(conference.deadline);
-      if (!isValid(deadlineDate)) {
+      const calDeadlineDate = getDeadlineInLocalTime(targetDeadline.date, targetDeadline.timezone || conference.timezone);
+      if (!calDeadlineDate || !isValid(calDeadlineDate)) {
         throw new Error('Invalid deadline date');
       }
 
-      // Create an end date 1 hour after the deadline
-      const endDate = new Date(deadlineDate.getTime() + (60 * 60 * 1000));
+      const endDate = new Date(calDeadlineDate.getTime() + (60 * 60 * 1000));
 
       const formatDateForGoogle = (date: Date) => format(date, "yyyyMMdd'T'HHmmss'Z'");
       const formatDateForApple = (date: Date) => format(date, "yyyyMMdd'T'HHmmss'Z'");
 
-      const title = encodeURIComponent(`${conference.title} deadline`);
+      const title = encodeURIComponent(`${conference.title} ${conference.year} - ${targetDeadline.label}`);
       const locationStr = encodeURIComponent(location);
       const description = encodeURIComponent(
-        `Paper Submission Deadline for ${conference.full_name || conference.title}\n` +
-        (conference.abstract_deadline ? `Abstract Deadline: ${conference.abstract_deadline}\n` : '') +
+        `${targetDeadline.label} for ${conference.full_name || conference.title}\n` +
         `Dates: ${conference.date}\n` +
         `Location: ${location}\n` +
         (conference.link ? `Website: ${conference.link}` : '')
@@ -147,7 +151,7 @@ const ConferenceDialog = ({ conference, open, onOpenChange }: ConferenceDialogPr
       if (type === 'google') {
         const url = `https://calendar.google.com/calendar/render?action=TEMPLATE` +
           `&text=${title}` +
-          `&dates=${formatDateForGoogle(deadlineDate)}/${formatDateForGoogle(endDate)}` +
+          `&dates=${formatDateForGoogle(calDeadlineDate)}/${formatDateForGoogle(endDate)}` +
           `&details=${description}` +
           `&location=${locationStr}` +
           `&sprop=website:${encodeURIComponent(conference.link || '')}`;
@@ -157,7 +161,7 @@ const ConferenceDialog = ({ conference, open, onOpenChange }: ConferenceDialogPr
 VERSION:2.0
 BEGIN:VEVENT
 URL:${conference.link || ''}
-DTSTART:${formatDateForApple(deadlineDate)}
+DTSTART:${formatDateForApple(calDeadlineDate)}
 DTEND:${formatDateForApple(endDate)}
 SUMMARY:${title}
 DESCRIPTION:${description}
@@ -184,16 +188,9 @@ END:VCALENDAR`;
 
   const formatDeadlineDisplay = () => {
     if (!deadlineDate || !isValid(deadlineDate)) return null;
-    
-    const localTZ = Intl.DateTimeFormat().resolvedOptions().timeZone;
     return (
       <div className="text-sm text-neutral-500">
-        <div>{format(deadlineDate, "MMMM d, yyyy 'at' HH:mm:ss")} ({localTZ})</div>
-        {conference.timezone && conference.timezone !== localTZ && (
-          <div className="text-xs">
-            Conference timezone: {conference.timezone}
-          </div>
-        )}
+        {format(deadlineDate, "MMMM d, yyyy 'at' HH:mm:ss")}
       </div>
     );
   };
@@ -211,8 +208,7 @@ END:VCALENDAR`;
     const localDate = getLocalDeadline(dateString);
     if (!localDate || !isValid(localDate)) return dateString;
     
-    const localTZ = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    return `${format(localDate, "MMMM d, yyyy")} (${localTZ})`;
+    return format(localDate, "MMMM d, yyyy");
   };
 
   return (
@@ -264,24 +260,27 @@ END:VCALENDAR`;
               <div className="space-y-2 flex-1">
                 <p className="font-medium">Important Deadlines</p>
                 <div className="text-sm text-gray-500 space-y-2">
-                  {upcomingDeadlines.length > 0 ? (
-                    upcomingDeadlines.map((deadline, index) => {
-                      const isNext = nextDeadline && deadline.date === nextDeadline.date && deadline.type === nextDeadline.type;
+                  {allDeadlines.length > 0 ? (
+                    allDeadlines.map((deadline, index) => {
                       const daysRemaining = getDaysRemaining(deadline, conference.timezone);
-                      const daysColorClass = getCountdownColorClass(daysRemaining);
+                      const isPast = daysRemaining !== null && daysRemaining <= 0;
+                      const isNext = nextDeadline && deadline.date === nextDeadline.date && deadline.type === nextDeadline.type;
+                      const daysColorClass = isPast ? "text-neutral-400" : getCountdownColorClass(daysRemaining);
                       return (
-                        <div 
-                          key={`${deadline.type}-${index}`} 
-                          className={`rounded-md p-2 ${isNext ? 'bg-blue-100 border border-blue-200' : 'bg-gray-100'}`}
+                        <div
+                          key={`${deadline.type}-${index}`}
+                          className={`rounded-md p-2 ${isNext ? 'bg-purple-50 border border-purple-200' : isPast ? 'bg-gray-50 opacity-60' : 'bg-gray-100'}`}
                         >
                           <div className="flex items-center justify-between gap-2">
-                            <p className={`flex-1 ${isNext ? 'font-medium text-blue-800' : ''}`}>
+                            <p className={`flex-1 ${isNext ? 'font-medium text-purple-800' : isPast ? 'line-through text-gray-400' : ''}`}>
                               {deadline.label}: {formatDeadlineDate(deadline.date)}
                               {isNext && <span className="ml-2 text-xs">(Next)</span>}
                             </p>
-                            {daysRemaining !== null && daysRemaining > 0 && (
+                            {daysRemaining !== null && (
                               <span className={`text-xs font-medium whitespace-nowrap ${daysColorClass}`}>
-                                {daysRemaining} {daysRemaining === 1 ? 'day' : 'days'}
+                                {daysRemaining > 0
+                                  ? `${daysRemaining} ${daysRemaining === 1 ? 'day' : 'days'}`
+                                  : 'Passed'}
                               </span>
                             )}
                           </div>
@@ -290,7 +289,7 @@ END:VCALENDAR`;
                     })
                   ) : (
                     <div className="bg-gray-100 rounded-md p-2">
-                      <p>No upcoming deadlines</p>
+                      <p>No deadlines listed</p>
                     </div>
                   )}
                 </div>
@@ -369,32 +368,34 @@ END:VCALENDAR`;
               </Button>
             )}
             
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button 
-                  variant="ghost" 
-                  size="sm" 
-                  className="text-sm focus-visible:ring-0 focus:outline-none"
-                >
-                  <CalendarPlus className="h-4 w-4 mr-2" />
-                  Add to Calendar
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="bg-white" align="end">
-                <DropdownMenuItem 
-                  className="text-neutral-800 hover:bg-neutral-100"
-                  onClick={() => createCalendarEvent('google')}
-                >
-                  Add to Google Calendar
-                </DropdownMenuItem>
-                <DropdownMenuItem 
-                  className="text-neutral-800 hover:bg-neutral-100"
-                  onClick={() => createCalendarEvent('apple')}
-                >
-                  Add to Apple Calendar
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            {nextDeadline && (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="text-sm focus-visible:ring-0 focus:outline-none"
+                  >
+                    <CalendarPlus className="h-4 w-4 mr-2" />
+                    Add to Calendar
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="bg-white" align="end">
+                  <DropdownMenuItem
+                    className="text-neutral-800 hover:bg-neutral-100"
+                    onClick={() => createCalendarEvent('google')}
+                  >
+                    Add to Google Calendar
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    className="text-neutral-800 hover:bg-neutral-100"
+                    onClick={() => createCalendarEvent('apple')}
+                  >
+                    Add to Apple Calendar
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            )}
           </div>
         </div>
       </DialogContent>

@@ -1,21 +1,38 @@
-- title: ISA
-  year: 2026
-  id: isa26
-  full_name: International Sociological Association World Congress
-  link: https://www.isa-sociology.org/
-  event_type: conference
+- title: ISA Forum
+  year: 2025
+  id: isa25
+  full_name: ISA Forum of Sociology
+  link: https://www.isa-sociology.org/en/conferences/forum/rabat-2025
   deadlines:
-    - type: abstract
+    - type: submission
       label: Abstract submission deadline
-      date: '2025-09-30 23:59:59'
+      date: '2024-10-15 23:59:59'
       timezone: AoE
-  date: July 11-17, 2026
-  start: '2026-07-11'
-  end: '2026-07-17'
-  city: Busan
-  country: South Korea
+    - type: notification
+      label: Acceptance notification
+      date: '2024-12-05 23:59:59'
+      timezone: AoE
+    - type: registration
+      label: Registration deadline (all presenters)
+      date: '2025-03-22 23:59:59'
+      timezone: AoE
+  date: July 6-11, 2025
+  start: '2025-07-06'
+  end: '2025-07-11'
+  city: Rabat
+  country: Morocco
+  venue: Mohammed V University
   tags:
     - sociology
     - multidisciplinary
-  fee: '$200-$400 (varies by country income level)'
-  funding: Travel grants for scholars from low-income countries
+  fee: Varies by country income category (A/B/C) and membership status; see ISA registration portal
+  funding: >-
+    ISA Registration Grants available through Research Committees/Working Groups
+    (application deadline: Jan 31, 2025).
+    Lodging grants at Mohammed V University dormitories for presenters from B & C category countries.
+  note: >-
+    Theme: "Knowing Justice in the Anthropocene".
+    5th ISA Forum of Sociology. First ISA Forum held in Africa/MENA region.
+    Abstracts accepted in English, French, or Spanish (max 300 words).
+    A public sociological film festival runs alongside the Forum.
+    Next ISA World Congress expected in 2027 (held every 4 years).

@@ -1,0 +1,71 @@
+- title: BSA
+  year: 2026
+  id: bsa26
+  full_name: British Sociological Association Annual Conference
+  link: https://www.britsoc.co.uk/events/key-bsa-events/bsa-annual-conference-2026-75-years-of-sociology/
+  deadlines:
+    - type: submission
+      label: Abstract submission deadline
+      date: '2025-10-03 23:59:59'
+      timezone: AoE
+    - type: notification
+      label: Abstract decisions
+      date: '2025-11-17 23:59:59'
+      timezone: AoE
+    - type: registration
+      label: Funded places application deadline
+      date: '2025-12-05 23:59:59'
+      timezone: AoE
+    - type: registration
+      label: Early booking deadline (£50 off)
+      date: '2026-02-15 23:59:59'
+      timezone: AoE
+    - type: registration
+      label: Registration closes
+      date: '2026-03-23 23:59:59'
+      timezone: AoE
+  date: April 8-10, 2026
+  start: '2026-04-08'
+  end: '2026-04-10'
+  city: Manchester
+  country: UK
+  venue: University of Manchester
+  tags:
+    - sociology
+  fee: >-
+    BSA member (waged): £475 full / £245 day.
+    BSA concessionary member: £275 full / £150 day.
+    Non-member (UK/Category A): £670 full / £400 day.
+    Non-member (Category B): £475 full / £245 day.
+    Early bird discount of £50 was available until Feb 15.
+  funding: >-
+    Funded places available (application deadline: Dec 5, 2025).
+    Contact events@britsoc.org.uk for details.
+  note: >-
+    Theme: "75 Years of Sociology".
+    Plenary speakers include Jason Arday and Les Back.
+    Cancellation policy: refunds minus 15% admin fee until Mar 25, 2026; no refunds after.
+
+- title: BSA
+  year: 2025
+  id: bsa25
+  full_name: British Sociological Association Annual Conference
+  link: https://www.britsoc.co.uk/events/key-bsa-events/bsa-annual-conference-2025-social-transformations/
+  deadlines:
+    - type: submission
+      label: Abstract submission deadline
+      date: '2024-10-18 23:59:59'
+      timezone: AoE
+  date: April 23-25, 2025
+  start: '2025-04-23'
+  end: '2025-04-25'
+  city: Manchester
+  country: UK
+  venue: University of Manchester (University Place, Oxford Road)
+  tags:
+    - sociology
+  fee: See BSA website for member/non-member rates; BSA membership starts at £40 for students
+  funding: Postgraduate bursaries and funded places available
+  note: >-
+    Theme: "Social Transformations".
+    3 days, 15 streams, ~700 presentations.

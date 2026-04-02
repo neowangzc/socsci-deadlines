@@ -1,151 +1,106 @@
----
-title: AI Deadlines
-emoji: ⚡
-colorFrom: gray
-colorTo: blue
-sdk: docker
-pinned: false
-app_port: 8080
----
+# Social Science Deadlines
 
-# AI Conference Deadlines
+Countdowns to top social science conference, workshop & summer school deadlines.
 
-A web app to quickly see submission deadlines to top AI conferences, such as NeurIPS and ICLR.
+## Features
 
-This helps researchers in quickly seeing when to submit their paper.
+- Conference / Workshop / Summer School deadline tracking
+- Discipline filters: Sociology, Political Science, Economics, Psychology, Linguistics, Communication, Education, Computational Social Science, etc.
+- Event type filters: Conference, Workshop, Summer School
+- Calendar year view
+- Countdown to next submission deadline
+- Fee and funding/scholarship information
+- Add deadline to Google Calendar / Apple Calendar
 
-Note: papers can be submitted at any time to [hf.co/papers](https://hf.co/papers) at [hf.co/papers/submit](https://hf.co/papers/submit), assuming the paper is available on [Arxiv](https://arxiv.org/).
+## Data Structure
 
-The benefit of [hf.co/papers](https://hf.co/papers) is that it allows people to quickly find related artifacts, such as models, datasets and demos. See [this paper page](https://huggingface.co/papers/2502.04328) as a nice example - it has 3 models, 1 dataset and 1 demo linked.
+Data is organized by event type:
 
-## Project info
+```
+src/data/
+├── conferences/    # Conferences
+├── workshops/      # Workshops
+└── summer_schools/ # Summer Schools
+```
 
-This project is entirely based on the awesome https://github.com/paperswithcode/ai-deadlines. As that repository is no longer maintained, we decided to make an up-to-date version along with a new UI. It was bootstrapped using [Lovable](https://lovable.dev/) and [Cursor](https://www.cursor.com/).
-
-It is hosted at https://huggingface.co/spaces/huggingface/ai-deadlines.
-
-New data is automatically fetched by AI Agents, which regularly open pull requests. See the [agents](agents) folder for details.
-
-Before that, we used to fetch data from https://github.com/ccfddl/ccf-deadlines/tree/main/conference/AI. 
+Each YAML file can contain multiple years of the same event.
 
 ## Contribute
 
 Contributions are very welcome!
 
-To keep things minimal, we mainly focus on top-tier conferences in AI.
-
 To add or update a deadline:
 - Fork the repository
-- Add a new block to the appropriate conference file in [src/data/conferences/](src/data/conferences/). Do not update an existing block of a previous time the conference took place but rather add a new block at the bottom of the file
-- Make sure it has the `title`, `year`, `id`, `link`, `deadlines`, `date`, `city`, `country`, `tags` attributes
-    + For deadlines that use "Anywhere on Earth" timing, always use `AoE` (not `UTC-12`). Other supported formats: IANA timezone names (e.g. `Asia/Seoul`), `UTC±X`, `GMT±X`. See available IANA timezone strings [here](https://momentjs.com/timezone/).
-- Optionally add a `venue`, `note` and `hindex` (this refers to the h5-index from [here](https://scholar.google.com/citations?view_op=top_venues&vq=eng)) which indicates the importance of a conference
+- Add a new entry to the appropriate file in [src/data/conferences/](src/data/conferences/), [src/data/workshops/](src/data/workshops/), or [src/data/summer_schools/](src/data/summer_schools/). 
+- **Do not update an existing entry of a previous year — add a new entry at the bottom of the file**
+- Make sure it has the `title`, `year`, `id`, `full_name`, `link`, `deadlines`, `date`, `start`, `end`, `city`, `country`, `tags` attributes
+- Optionally add `venue`, `fee`, `funding`, `note`
+- Deadline `type` must be one of:
+  - `submission` — paper / abstract / panel submission (**required**, drives countdown)
+  - `notification` — acceptance notification
+  - `registration` — registration / early-bird / travel grant
 
-You can add any custom number of deadlines, with any custom string for the `type` and `label`. The app will simply use the first upcoming deadline to showcase a deadline counter, and display all upcoming deadlines in the conference details card.
 
-Example:
+Example:bu x
 ```yaml
-- title: BestConf
-  year: 2022
-  id: bestconf22  # title as lower case + last two digits of year
-  full_name: Best Conference for Anything  # full conference name
-  link: link-to-website.com
+- title: ASA
+  year: 2026
+  id: asa26                                          # lowercase + last two digits of year
+  full_name: American Sociological Association Annual Meeting
+  link: https://www.asanet.org/2026-annual-meeting/
   deadlines:
-    - type: abstract
-      label: Abstract deadline
-      date: '2025-10-09 13:59:59'
-      timezone: GMT+02
     - type: submission
       label: Paper submission deadline
-      date: '2025-10-09 13:59:59'
-      timezone: GMT+02
-  timezone: Asia/Seoul
-  city: Incheon
-  country: South Korea
-  venue: Incheon Conference Centre, South Korea
-  date: September, 18-22, 2022
-  start: YYYY-MM-DD
-  end: YYYY-MM-DD
-  paperslink: link-to-full-paper-list.com
-  pwclink: link-to-papers-with-code.com
-  hindex: 100.0
+      date: '2026-02-25'
+    - type: notification
+      label: Acceptance notification
+      date: '2026-05-15'
+    - type: registration
+      label: Early-bird registration deadline
+      date: '2026-06-15'
+  date: August 7-11, 2026
+  start: '2026-08-07'
+  end: '2026-08-11'
+  city: New York
+  country: USA
+  venue: Hilton New York Midtown
   tags:
-  - machine learning
-  note: Important
+    - sociology
+  fee: '$277 member / $148 student'
+  funding: Travel grants available,contact meetings@asanet.org before July 1, 2026
+  note: 'Theme: Disrupting the Status Quo'
 ```
-- Send a pull request to update the appropriate conference file in [src/data/conferences/](src/data/conferences/).
+- Send a pull request
 
-## How to run locally
 
-If you want to work locally using your own IDE, you can clone this repo and push changes.
+### Discipline Tags
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+`sociology`, `political-science`, `economics`, `psychology`, `linguistics`, `communication`, `education`, `computational-social-science`, `multidisciplinary`
 
-Follow these steps:
+## Run Locally
+
+Requires Node.js & npm ([install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)).
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone https://github.com/huggingface/ai-deadlines
-
-# Step 2: Navigate to the project directory.
-cd ai-deadlines
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+git clone https://github.com/neowangzc/socsci-deadlines
+cd socsci-deadlines
+npm install
 npm run dev
 ```
 
-This runs the app at http://localhost:8080/.
+Opens at http://localhost:8080/.
 
-## Deploy with Docker
+## Tech Stack
 
-First build the Docker image as follows:
-
-```bash
-docker build -t ai-deadlines .
-```
-
-Next it can be run as follows:
-
-```bash
-docker run -it -p 8080:8080 ai-deadlines
-```
-
-You can see it in your web browser at http://localhost:8080/.
-
-## Deploy on the cloud
-
-One way to deploy this on a cloud is by using [Artifact Registry](https://cloud.google.com/artifact-registry/docs) (for hosting the Docker image) and [Cloud Run](https://cloud.google.com/run?hl=en) (a serverless service by Google to run Docker containers). See [this YouTube video](https://youtu.be/cw34KMPSt4k?si=UbzNRobNzib93uDl) for a nice intro.
-
-Make sure to:
-- create a [Google Cloud project](https://console.cloud.google.com/)
-- set up a billing account
-- have the [gcloud SDK installed](https://cloud.google.com/sdk/docs/install).
-
-To deploy, simply run:
-
-```bash
-gcloud auth login
-gcloud auth application-default login
-gcloud run deploy --source .
-```
-
-## Technologies used
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
+- Vite + React + TypeScript
+- shadcn-ui + Radix UI
 - Tailwind CSS
+- YAML data files (no database)
+
+## Credits
+
+Adapted from [huggingface/ai-deadlines](https://github.com/huggingface/ai-deadlines), which was based on [paperswithcode/ai-deadlines](https://github.com/paperswithcode/ai-deadlines).
 
 ## License
 
-This project is licensed under [MIT](LICENSE).
-
-## Maintainers
-
-Feel free to just open an issue. Otherwise contact @nielsrogge
+[MIT](LICENSE)

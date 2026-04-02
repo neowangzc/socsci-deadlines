@@ -1,5 +1,5 @@
 export interface Deadline {
-  type: string;
+  type: 'submission' | 'notification' | 'registration';
   label: string;
   date: string;
   timezone?: string;

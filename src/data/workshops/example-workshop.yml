@@ -1,0 +1,30 @@
+- title: Example Workshop
+  year: 2099
+  id: example-ws99
+  full_name: Example Social Science Methods Workshop
+  link: https://example.com/workshop2099
+  deadlines:
+    - type: submission
+      label: Paper submission deadline
+      date: '2099-03-15 23:59:59'
+      timezone: AoE
+    - type: notification
+      label: Acceptance notification
+      date: '2099-05-01 23:59:59'
+      timezone: AoE
+    - type: registration
+      label: Registration deadline
+      date: '2099-06-01 23:59:59'
+      timezone: AoE
+  date: July 10-11, 2099
+  start: '2099-07-10'
+  end: '2099-07-11'
+  city: Tokyo
+  country: Japan
+  venue: Tohoku University
+  tags:
+    - sociology
+    - computational-social-science
+  fee: '$100 regular / $50 student'
+  funding: Travel grants for graduate students
+  note: This is an example workshop entry for testing purposes.

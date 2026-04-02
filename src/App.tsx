@@ -6,24 +6,27 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Calendar from "./pages/Calendar";
+import { TimezoneProvider } from "./utils/timezoneContext";
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <div className="min-h-screen w-full" style={{ WebkitOverflowScrolling: "touch" }}>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/calendar" element={<Calendar />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </div>
-      </BrowserRouter>
-    </TooltipProvider>
+    <TimezoneProvider>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <div className="min-h-screen w-full" style={{ WebkitOverflowScrolling: "touch" }}>
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/calendar" element={<Calendar />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </div>
+        </BrowserRouter>
+      </TooltipProvider>
+    </TimezoneProvider>
   </QueryClientProvider>
 );
 

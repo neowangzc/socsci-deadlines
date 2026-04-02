@@ -17,22 +17,20 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { Plus, Trash2 } from "lucide-react";
 
 const GITHUB_REPO = "neowangzc/socsci-deadlines";
 
 const DISCIPLINES = [
+  { value: "multidisciplinary", label: "Multidisciplinary" },
   { value: "sociology", label: "Sociology" },
   { value: "political-science", label: "Political Science" },
   { value: "economics", label: "Economics" },
   { value: "psychology", label: "Psychology" },
   { value: "linguistics", label: "Linguistics" },
   { value: "communication", label: "Communication" },
-  { value: "anthropology", label: "Anthropology" },
   { value: "education", label: "Education" },
-  { value: "geography", label: "Geography" },
   { value: "computational-social-science", label: "Computational Social Science" },
-  { value: "digital-humanities", label: "Digital Humanities" },
-  { value: "multidisciplinary", label: "Multidisciplinary" },
 ];
 
 const EVENT_TYPES = [
@@ -40,6 +38,51 @@ const EVENT_TYPES = [
   { value: "workshop", label: "Workshop" },
   { value: "summer_school", label: "Summer School" },
 ];
+
+const DEADLINE_TYPES = [
+  { value: "paper", label: "Paper submission deadline" },
+  { value: "panel", label: "Panel proposal deadline" },
+  { value: "application", label: "Application deadline" },
+  { value: "notification", label: "Acceptance notification" },
+];
+
+const TIMEZONES = [
+  { value: "AoE", label: "AoE (Anywhere on Earth)" },
+  { value: "UTC-12", label: "UTC-12" },
+  { value: "UTC-11", label: "UTC-11 (Samoa)" },
+  { value: "UTC-10", label: "UTC-10 (Hawaii)" },
+  { value: "UTC-9", label: "UTC-9 (Alaska)" },
+  { value: "UTC-8", label: "UTC-8 (Pacific)" },
+  { value: "UTC-7", label: "UTC-7 (Mountain)" },
+  { value: "UTC-6", label: "UTC-6 (Central US/Mexico)" },
+  { value: "UTC-5", label: "UTC-5 (Eastern US/Colombia)" },
+  { value: "UTC-4", label: "UTC-4 (Atlantic/Chile)" },
+  { value: "UTC-3", label: "UTC-3 (Brazil/Argentina)" },
+  { value: "UTC-2", label: "UTC-2" },
+  { value: "UTC-1", label: "UTC-1 (Azores)" },
+  { value: "UTC", label: "UTC" },
+  { value: "UTC+1", label: "UTC+1 (Central Europe)" },
+  { value: "UTC+2", label: "UTC+2 (Eastern Europe/Israel)" },
+  { value: "UTC+3", label: "UTC+3 (Moscow/Turkey)" },
+  { value: "UTC+4", label: "UTC+4 (Gulf/Georgia)" },
+  { value: "UTC+5", label: "UTC+5 (Pakistan)" },
+  { value: "UTC+5:30", label: "UTC+5:30 (India)" },
+  { value: "UTC+6", label: "UTC+6 (Bangladesh)" },
+  { value: "UTC+7", label: "UTC+7 (Thailand/Vietnam)" },
+  { value: "UTC+8", label: "UTC+8 (China/Singapore)" },
+  { value: "UTC+9", label: "UTC+9 (Japan/Korea)" },
+  { value: "UTC+10", label: "UTC+10 (Australia East)" },
+  { value: "UTC+11", label: "UTC+11" },
+  { value: "UTC+12", label: "UTC+12 (New Zealand)" },
+  { value: "UTC+13", label: "UTC+13 (Tonga)" },
+];
+
+interface DeadlineEntry {
+  label: string;
+  date: string;
+  time: string;
+  timezone: string;
+}
 
 interface SubmitEventDialogProps {
   open: boolean;
@@ -54,22 +97,51 @@ const SubmitEventDialog = ({ open, onOpenChange }: SubmitEventDialogProps) => {
     eventType: "conference",
     discipline: "",
     website: "",
-    deadlineDate: "",
-    deadlineLabel: "Paper submission deadline",
+    venue: "",
     city: "",
     country: "",
-    eventDates: "",
+    startDate: "",
+    endDate: "",
     fee: "",
     funding: "",
     note: "",
   });
 
+  const [deadlines, setDeadlines] = useState<DeadlineEntry[]>([
+    { label: "Paper submission deadline", date: "", time: "23:59", timezone: "AoE" },
+  ]);
+
   const update = (field: string, value: string | number) => {
     setForm(prev => ({ ...prev, [field]: value }));
   };
 
+  const updateDeadline = (index: number, field: keyof DeadlineEntry, value: string) => {
+    setDeadlines(prev => prev.map((d, i) => i === index ? { ...d, [field]: value } : d));
+  };
+
+  const addDeadline = () => {
+    setDeadlines(prev => [...prev, { label: "", date: "", time: "23:59", timezone: "AoE" }]);
+  };
+
+  const removeDeadline = (index: number) => {
+    if (deadlines.length > 1) {
+      setDeadlines(prev => prev.filter((_, i) => i !== index));
+    }
+  };
+
   const handleSubmit = () => {
     const title = `[New Event] ${form.title} ${form.year}`;
+
+    const deadlineRows = deadlines
+      .filter(d => d.date)
+      .map(d => {
+        let label = d.label;
+        if (label.startsWith("__other__:")) label = label.slice(10);
+        if (label === "__other__" || !label) label = "TBD";
+        const timeStr = d.time || "23:59";
+        return `| ${label} | ${d.date} ${timeStr} | ${d.timezone || 'AoE'} |`;
+      })
+      .join('\n');
 
     const body = `## Event Information
 
@@ -81,13 +153,19 @@ const SubmitEventDialog = ({ open, onOpenChange }: SubmitEventDialogProps) => {
 | **Type** | ${form.eventType} |
 | **Discipline** | ${form.discipline} |
 | **Website** | ${form.website} |
-| **Deadline** | ${form.deadlineDate} |
-| **Deadline Label** | ${form.deadlineLabel} |
+| **Venue** | ${form.venue || 'N/A'} |
 | **City** | ${form.city} |
 | **Country** | ${form.country} |
-| **Event Dates** | ${form.eventDates} |
+| **Start Date** | ${form.startDate} |
+| **End Date** | ${form.endDate} |
 | **Fee** | ${form.fee || 'N/A'} |
 | **Funding / Scholarships** | ${form.funding || 'N/A'} |
+
+## Deadlines
+
+| Label | Date & Time | Timezone |
+|-------|-------------|----------|
+${deadlineRows}
 
 ${form.note ? `### Additional Notes\n${form.note}` : ''}
 
@@ -103,7 +181,8 @@ ${form.note ? `### Additional Notes\n${form.note}` : ''}
     onOpenChange(false);
   };
 
-  const isValid = form.title && form.fullName && form.discipline && form.deadlineDate;
+  const hasValidDeadline = deadlines.some(d => d.date);
+  const isValid = form.title && form.fullName && form.discipline && hasValidDeadline;
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -192,35 +271,113 @@ ${form.note ? `### Additional Notes\n${form.note}` : ''}
             />
           </div>
 
-          {/* Deadline */}
-          <div className="grid grid-cols-2 gap-3">
-            <div className="space-y-1.5">
-              <Label htmlFor="deadlineDate">Deadline Date *</Label>
-              <Input
-                id="deadlineDate"
-                type="date"
-                value={form.deadlineDate}
-                onChange={e => update("deadlineDate", e.target.value)}
-              />
+          {/* Deadlines - dynamic list */}
+          <div className="space-y-2">
+            <div className="flex items-center justify-between">
+              <Label>Deadlines *</Label>
+              <Button
+                type="button"
+                variant="ghost"
+                size="sm"
+                className="text-purple-600 hover:text-purple-700 gap-1 h-7"
+                onClick={addDeadline}
+              >
+                <Plus className="h-3.5 w-3.5" />
+                Add deadline
+              </Button>
             </div>
-            <div className="space-y-1.5">
-              <Label htmlFor="deadlineLabel">Deadline Label</Label>
-              <Input
-                id="deadlineLabel"
-                placeholder="e.g. Paper submission deadline"
-                value={form.deadlineLabel}
-                onChange={e => update("deadlineLabel", e.target.value)}
-              />
-            </div>
+            {deadlines.map((dl, index) => (
+              <div key={index} className="rounded-md border border-neutral-200 p-3 space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-medium text-neutral-500">Deadline {index + 1}</span>
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="sm"
+                    className="h-6 w-6 p-0 text-neutral-400 hover:text-red-500"
+                    onClick={() => removeDeadline(index)}
+                    disabled={deadlines.length <= 1}
+                  >
+                    <Trash2 className="h-3.5 w-3.5" />
+                  </Button>
+                </div>
+                {/* Label */}
+                <Select
+                  value={dl.label.startsWith("__other__") || (!DEADLINE_TYPES.some(t => t.label === dl.label) && dl.label !== "") ? "__other__" : dl.label}
+                  onValueChange={v => {
+                    if (v === "__other__") {
+                      updateDeadline(index, "label", "__other__");
+                    } else {
+                      updateDeadline(index, "label", v);
+                    }
+                  }}
+                >
+                  <SelectTrigger className="h-9">
+                    <SelectValue placeholder="Select type..." />
+                  </SelectTrigger>
+                  <SelectContent className="bg-white">
+                    {DEADLINE_TYPES.map(t => (
+                      <SelectItem key={t.value} value={t.label}>{t.label}</SelectItem>
+                    ))}
+                    <SelectItem value="__other__">Other (custom)</SelectItem>
+                  </SelectContent>
+                </Select>
+                {(dl.label === "__other__" || dl.label.startsWith("__other__:")) && (
+                  <Input
+                    placeholder="Enter custom label..."
+                    className="h-8 text-sm"
+                    value={dl.label.startsWith("__other__:") ? dl.label.slice(10) : ""}
+                    onChange={e => updateDeadline(index, "label", `__other__:${e.target.value}`)}
+                  />
+                )}
+                {/* Date + Time + Timezone */}
+                <div className="grid grid-cols-3 gap-2">
+                  <Input
+                    type="date"
+                    className="h-9"
+                    value={dl.date}
+                    onChange={e => updateDeadline(index, "date", e.target.value)}
+                  />
+                  <Input
+                    type="time"
+                    className="h-9"
+                    value={dl.time}
+                    onChange={e => updateDeadline(index, "time", e.target.value)}
+                  />
+                  <Select
+                    value={dl.timezone}
+                    onValueChange={v => updateDeadline(index, "timezone", v)}
+                  >
+                    <SelectTrigger className="h-9">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent className="bg-white">
+                      {TIMEZONES.map(tz => (
+                        <SelectItem key={tz.value} value={tz.value}>{tz.label}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+            ))}
           </div>
 
           {/* Location */}
+          <div className="space-y-1.5">
+            <Label htmlFor="venue">Venue</Label>
+            <Input
+              id="venue"
+              placeholder="e.g. Tohoku University"
+              value={form.venue}
+              onChange={e => update("venue", e.target.value)}
+            />
+          </div>
           <div className="grid grid-cols-2 gap-3">
             <div className="space-y-1.5">
               <Label htmlFor="city">City</Label>
               <Input
                 id="city"
-                placeholder="e.g. New York"
+                placeholder="e.g. Sendai"
                 value={form.city}
                 onChange={e => update("city", e.target.value)}
               />
@@ -229,7 +386,7 @@ ${form.note ? `### Additional Notes\n${form.note}` : ''}
               <Label htmlFor="country">Country</Label>
               <Input
                 id="country"
-                placeholder="e.g. USA"
+                placeholder="e.g. Japan"
                 value={form.country}
                 onChange={e => update("country", e.target.value)}
               />
@@ -237,14 +394,25 @@ ${form.note ? `### Additional Notes\n${form.note}` : ''}
           </div>
 
           {/* Event dates */}
-          <div className="space-y-1.5">
-            <Label htmlFor="eventDates">Event Dates</Label>
-            <Input
-              id="eventDates"
-              placeholder="e.g. August 8-11, 2026"
-              value={form.eventDates}
-              onChange={e => update("eventDates", e.target.value)}
-            />
+          <div className="grid grid-cols-2 gap-3">
+            <div className="space-y-1.5">
+              <Label htmlFor="startDate">Start Date</Label>
+              <Input
+                id="startDate"
+                type="date"
+                value={form.startDate}
+                onChange={e => update("startDate", e.target.value)}
+              />
+            </div>
+            <div className="space-y-1.5">
+              <Label htmlFor="endDate">End Date</Label>
+              <Input
+                id="endDate"
+                type="date"
+                value={form.endDate}
+                onChange={e => update("endDate", e.target.value)}
+              />
+            </div>
           </div>
 
           {/* Fee + Funding */}

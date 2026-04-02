@@ -2,85 +2,20 @@ import { Conference, Deadline } from "@/types/conference";
 import { getDeadlineInLocalTime } from './dateUtils';
 import { isValid, isPast } from "date-fns";
 
+function isCfpDeadline(deadline: Deadline): boolean {
+  return deadline.type === 'submission';
+}
+
 /**
- * Get all deadlines for a conference, including both new format and legacy format
+ * Get all deadlines for a conference
  */
 export function getAllDeadlines(conference: Conference): Deadline[] {
   const deadlines: Deadline[] = [];
-  const seenTypes = new Set<string>();
-  
-  // Add new format deadlines first (they take priority)
+
   if (conference.deadlines && conference.deadlines.length > 0) {
-    conference.deadlines.forEach(deadline => {
-      deadlines.push(deadline);
-      seenTypes.add(deadline.type);
-    });
+    deadlines.push(...conference.deadlines);
   }
-  
-  // Add legacy format deadlines for backward compatibility, but only if not already present
-  if (conference.abstract_deadline && !seenTypes.has('abstract')) {
-    deadlines.push({
-      type: 'abstract',
-      label: 'Abstract Submission',
-      date: conference.abstract_deadline,
-      timezone: conference.timezone
-    });
-  }
-  
-  if (conference.deadline && !seenTypes.has('submission')) {
-    deadlines.push({
-      type: 'submission',
-      label: 'Paper Submission',
-      date: conference.deadline,
-      timezone: conference.timezone
-    });
-  }
-  
-  if (conference.commitment_deadline && !seenTypes.has('commitment')) {
-    deadlines.push({
-      type: 'commitment',
-      label: 'Commitment',
-      date: conference.commitment_deadline,
-      timezone: conference.timezone
-    });
-  }
-  
-  if (conference.review_release_date && !seenTypes.has('review_release')) {
-    deadlines.push({
-      type: 'review_release',
-      label: 'Reviews Released',
-      date: conference.review_release_date,
-      timezone: conference.timezone
-    });
-  }
-  
-  if (conference.rebuttal_period_start && !seenTypes.has('rebuttal_start')) {
-    deadlines.push({
-      type: 'rebuttal_start',
-      label: 'Rebuttal Period Start',
-      date: conference.rebuttal_period_start,
-      timezone: conference.timezone
-    });
-  }
-  
-  if (conference.rebuttal_period_end && !seenTypes.has('rebuttal_end')) {
-    deadlines.push({
-      type: 'rebuttal_end',
-      label: 'Rebuttal Period End',
-      date: conference.rebuttal_period_end,
-      timezone: conference.timezone
-    });
-  }
-  
-  if (conference.final_decision_date && !seenTypes.has('final_decision')) {
-    deadlines.push({
-      type: 'final_decision',
-      label: 'Final Decision',
-      date: conference.final_decision_date,
-      timezone: conference.timezone
-    });
-  }
-  
+
   // Sort deadlines by date
   deadlines.sort((a, b) => {
     const aDate = getDeadlineInLocalTime(a.date, a.timezone || conference.timezone);
@@ -94,73 +29,70 @@ export function getAllDeadlines(conference: Conference): Deadline[] {
 }
 
 /**
- * Get the next upcoming deadline for a conference
+ * Get the next upcoming CFP deadline for a conference.
+ * Only submission-type deadlines (paper, abstract, panel, application) count.
  */
 export function getNextUpcomingDeadline(conference: Conference): Deadline | null {
   const allDeadlines = getAllDeadlines(conference);
-  
+
   if (allDeadlines.length === 0) {
     return null;
   }
-  
-  // Filter out past deadlines and invalid dates
-  const upcomingDeadlines = allDeadlines.filter(deadline => {
+
+  // Only CFP deadlines that are still in the future
+  const upcomingCfp = allDeadlines.filter(deadline => {
+    if (!isCfpDeadline(deadline)) return false;
     const deadlineDate = getDeadlineInLocalTime(deadline.date, deadline.timezone || conference.timezone);
     return deadlineDate && isValid(deadlineDate) && !isPast(deadlineDate);
   });
-  
-  if (upcomingDeadlines.length === 0) {
+
+  if (upcomingCfp.length === 0) {
     return null;
   }
-  
-  // Sort by date and return the earliest
-  upcomingDeadlines.sort((a, b) => {
+
+  upcomingCfp.sort((a, b) => {
     const aDate = getDeadlineInLocalTime(a.date, a.timezone || conference.timezone);
     const bDate = getDeadlineInLocalTime(b.date, b.timezone || conference.timezone);
-    
+
     if (!aDate || !bDate) return 0;
     return aDate.getTime() - bDate.getTime();
   });
-  
-  return upcomingDeadlines[0];
+
+  return upcomingCfp[0];
 }
 
 /**
- * Get the primary deadline for sorting purposes (next upcoming or most recent past)
+ * Get the primary deadline for sorting purposes (next upcoming CFP or most recent past CFP)
  */
 export function getPrimaryDeadline(conference: Conference): Deadline | null {
   const nextDeadline = getNextUpcomingDeadline(conference);
-  
+
   if (nextDeadline) {
     return nextDeadline;
   }
-  
-  // If no upcoming deadlines, return the most recent past deadline
+
+  // No upcoming CFP deadlines — return the most recent past CFP deadline
   const allDeadlines = getAllDeadlines(conference);
-  
-  if (allDeadlines.length === 0) {
-    return null;
-  }
-  
-  // Filter valid dates and sort by date (most recent first)
-  const validDeadlines = allDeadlines.filter(deadline => {
+
+  const pastCfp = allDeadlines.filter(deadline => {
+    if (!isCfpDeadline(deadline)) return false;
     const deadlineDate = getDeadlineInLocalTime(deadline.date, deadline.timezone || conference.timezone);
     return deadlineDate && isValid(deadlineDate);
   });
-  
-  if (validDeadlines.length === 0) {
+
+  if (pastCfp.length === 0) {
     return null;
   }
-  
-  validDeadlines.sort((a, b) => {
+
+  pastCfp.sort((a, b) => {
     const aDate = getDeadlineInLocalTime(a.date, a.timezone || conference.timezone);
     const bDate = getDeadlineInLocalTime(b.date, b.timezone || conference.timezone);
-    
+
     if (!aDate || !bDate) return 0;
-    return bDate.getTime() - aDate.getTime(); // Most recent first
+    return bDate.getTime() - aDate.getTime();
   });
-  
-  return validDeadlines[0];
+
+  return pastCfp[0];
 }
 
 /**

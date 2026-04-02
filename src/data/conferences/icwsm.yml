@@ -1,0 +1,117 @@
+- title: ICWSM
+  year: 2025
+  id: icwsm25
+  full_name: International AAAI Conference on Web and Social Media
+  link: https://www.icwsm.org/2025/
+  deadlines:
+    - type: submission
+      label: Full paper Round 1 deadline
+      date: '2024-05-15 23:59:59'
+      timezone: AoE
+    - type: notification
+      label: Round 1 notification
+      date: '2024-07-15 23:59:59'
+      timezone: AoE
+    - type: submission
+      label: Full paper Round 2 deadline
+      date: '2024-09-15 23:59:59'
+      timezone: AoE
+    - type: notification
+      label: Round 2 notification
+      date: '2024-11-15 23:59:59'
+      timezone: AoE
+    - type: submission
+      label: Full paper Round 3 deadline
+      date: '2025-01-15 23:59:59'
+      timezone: AoE
+    - type: notification
+      label: Round 3 notification
+      date: '2025-03-15 23:59:59'
+      timezone: AoE
+    - type: registration
+      label: Workshops deadline
+      date: '2025-01-24 23:59:59'
+      timezone: AoE
+    - type: registration
+      label: Student travel grant deadline
+      date: '2025-03-31 23:59:59'
+      timezone: AoE
+  date: June 23-26, 2025
+  start: '2025-06-23'
+  end: '2025-06-26'
+  city: Copenhagen
+  country: Denmark
+  venue: Copenhagen University (City Campus) & AAU Copenhagen Campus
+  tags:
+    - computational-social-science
+    - communication
+  fee: >-
+    Early bird (by May 9): $625 AAAI member / $360 student member / $735 non-member / $420 non-member student.
+    Standard: $725 member / $410 student / $835 non-member / $500 non-member student.
+    Workshop/tutorial day only: $75 regular / $50 student.
+  funding: >-
+    Student travel grants available (deadline: Mar 31, 2025).
+    Virtual attendance option for researchers from eligible developing nations.
+  note: >-
+    19th ICWSM. Three-round submission cycle.
+    Keynote speakers: Kiran Garimella and Richard Rogers.
+    Main conference at Copenhagen University CSS 35.01.05; workshops at AAU Copenhagen.
+    Refund deadline: May 9, 2025 (with $100 processing fee).
+
+- title: ICWSM
+  year: 2026
+  id: icwsm26
+  full_name: International AAAI Conference on Web and Social Media
+  link: https://www.icwsm.org/2026/index.html
+  deadlines:
+    - type: submission
+      label: Full paper Round 1 deadline
+      date: '2025-05-15 23:59:59'
+      timezone: AoE
+    - type: notification
+      label: Round 1 notification
+      date: '2025-07-15 23:59:59'
+      timezone: AoE
+    - type: submission
+      label: Full paper Round 2 deadline
+      date: '2025-09-15 23:59:59'
+      timezone: AoE
+    - type: notification
+      label: Round 2 notification
+      date: '2025-11-15 23:59:59'
+      timezone: AoE
+    - type: submission
+      label: Full paper Round 3 + Posters/Demos/Datasets deadline
+      date: '2026-01-15 23:59:59'
+      timezone: AoE
+    - type: notification
+      label: Round 3 notification
+      date: '2026-03-15 23:59:59'
+      timezone: AoE
+    - type: registration
+      label: Workshops deadline
+      date: '2026-01-30 23:59:59'
+      timezone: AoE
+  date: May 26-29, 2026
+  start: '2026-05-26'
+  end: '2026-05-29'
+  city: Los Angeles
+  country: USA
+  venue: Los Angeles Airport Marriott (main) & USC Information Sciences Institute (workshops/tutorials)
+  tags:
+    - computational-social-science
+    - communication
+  fee: >-
+    Early bird (by Apr 10): $625 AAAI member / $360 student / $735 non-member / $420 non-member student.
+    Standard: $725 member / $410 student / $835 non-member / $500 non-member student.
+    Workshop/tutorial day only: $150 regular / $75 student.
+  funding: >-
+    Virtual attendance option for researchers from eligible developing nations (apply by May 15).
+    Student travel grant details to be announced.
+  note: >-
+    20th ICWSM. Three-round submission cycle.
+    Workshops/tutorials on May 26 at USC ISI; main conference May 27-29 at LA Airport Marriott.
+    Posters, Demos, and Datasets should be submitted in Round 3 only.
+    Hotel rate: $169/night at LA Airport Marriott (cutoff May 6, 2026).
+    Refund requests by Apr 10 with $100 processing fee.
+    Page limits: Full papers 11pp, Posters 5pp, Demos 3pp, Datasets 2-10pp.

@@ -2,42 +2,81 @@
   year: 2025
   id: ic2s225
   full_name: International Conference on Computational Social Science
-  link: https://ic2s2.org/2025/
-  event_type: conference
+  link: https://ic2s2-2025.org/
   deadlines:
-    - type: abstract
-      label: Extended abstract deadline
-      date: '2025-02-24 23:59:59'
+    - type: submission
+      label: Abstract submission deadline
+      date: '2025-02-26 23:59:59'
       timezone: AoE
     - type: notification
       label: Acceptance notification
-      date: '2025-04-14 23:59:59'
+      date: '2025-04-18 23:59:59'
       timezone: AoE
-  date: July 15-18, 2025
-  start: '2025-07-15'
-  end: '2025-07-18'
+    - type: registration
+      label: Early-bird registration deadline
+      date: '2025-05-09 23:59:59'
+      timezone: AoE
+    - type: registration
+      label: Travel grant application deadline
+      date: '2025-04-30 23:59:59'
+      timezone: AoE
+  date: July 22-24, 2025
+  start: '2025-07-22'
+  end: '2025-07-24'
   city: Norrköping
   country: Sweden
+  venue: Louis de Geer Hall
   tags:
     - computational-social-science
     - multidisciplinary
-  fee: '€350 regular / €200 student'
-  funding: Fee waivers for students from low-income countries
+  fee: >-
+    Early bird: 5,000 SEK regular / 2,000 SEK student (by May 9).
+    Standard: 5,500 SEK regular / 2,800 SEK student.
+    Tutorials: 750 SEK. Conference dinner: 500 SEK.
+    All prices include 25% VAT.
+  funding: >-
+    Travel grants available (application deadline: Apr 30, 2025).
+    See https://www.ic2s2-2025.org/travel-grants/ for details.
+  note: >-
+    11th IC2S2. Tutorial day on July 21, 2025.
+    Hosted by Swedish Excellence Center for Computational Social Science
+    and Institute for Analytical Sociology at Linköping University.
+    Contact: ic2s2-2025@liu.se
 
 - title: IC2S2
   year: 2026
   id: ic2s226
   full_name: International Conference on Computational Social Science
-  link: https://ic2s2.org/
-  event_type: conference
+  link: https://ic2s2-2026.org/
   deadlines:
-    - type: abstract
-      label: Extended abstract deadline
-      date: '2026-02-28 23:59:59'
+    - type: submission
+      label: Abstract submission deadline
+      date: '2026-03-03 23:59:59'
       timezone: AoE
-  date: July 2026
-  city: TBD
-  country: TBD
+    - type: notification
+      label: Acceptance notification
+      date: '2026-04-14 23:59:59'
+      timezone: AoE
+    - type: registration
+      label: Early-bird registration deadline
+      date: '2026-05-08 23:59:59'
+      timezone: AoE
+    - type: registration
+      label: Final registration deadline
+      date: '2026-07-03 23:59:59'
+      timezone: AoE
+  date: July 28-31, 2026
+  start: '2026-07-28'
+  end: '2026-07-31'
+  city: Burlington
+  country: USA
+  venue: University of Vermont
   tags:
     - computational-social-science
     - multidisciplinary
+  fee: Registration fees to be announced; see https://ic2s2-2026.org/register/
+  funding: To be announced. Contact IC2S2@uvm.edu for inquiries.
+  note: >-
+    12th IC2S2. Workshops and tutorials on July 28; main conference July 29-31.
+    Hosted by the Vermont Complex Systems Institute at the University of Vermont.
+    Sponsors include Office of the Vice President for Research (UVM) and Vermont EPSCoR.

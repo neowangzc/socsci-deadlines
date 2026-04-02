@@ -12,6 +12,18 @@ import { getAllCountries } from "@/utils/countryExtractor";
 import { sortConferencesByDeadline } from "@/utils/conferenceUtils";
 import { hasUpcomingDeadlines } from "@/utils/deadlineUtils";
 
+const TAG_ORDER = [
+  "sociology",
+  "political-science",
+  "economics",
+  "psychology",
+  "linguistics",
+  "communication",
+  "education",
+  "computational-social-science",
+  "multidisciplinary",
+];
+
 const EVENT_TYPE_LABELS: Record<EventType, string> = {
   conference: "Conference",
   workshop: "Workshop",
@@ -43,7 +55,13 @@ const Index = () => {
     });
 
     return Array.from(tagCounts.entries())
-      .sort((a, b) => b[1] - a[1])
+      .sort((a, b) => {
+        const ai = TAG_ORDER.indexOf(a[0]);
+        const bi = TAG_ORDER.indexOf(b[0]);
+        const aOrder = ai === -1 ? TAG_ORDER.length : ai;
+        const bOrder = bi === -1 ? TAG_ORDER.length : bi;
+        return aOrder - bOrder;
+      })
       .map(([tag]) => ({
         id: tag,
         label: tag.split("-").map(word =>
@@ -162,6 +180,14 @@ const Index = () => {
                   {category.label}
                 </button>
               ))}
+              {selectedTags.size > 0 && (
+                <button
+                  className="px-4 py-2 rounded-md text-sm font-medium text-neutral-500 hover:text-neutral-700 transition-colors"
+                  onClick={() => handleTagsChange(new Set())}
+                >
+                  Clear
+                </button>
+              )}
             </div>
           </div>
 
