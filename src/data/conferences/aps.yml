@@ -1,0 +1,43 @@
+- title: APS
+  year: 2026
+  id: aps26
+  full_name: Association for Psychological Science Annual Convention
+  link: https://www.psychologicalscience.org/conventions/annual
+  event_type: conference
+  deadlines:
+    - type: paper
+      label: Submission deadline
+      date: '2025-12-01 23:59:59'
+      timezone: AoE
+    - type: notification
+      label: Acceptance notification
+      date: '2026-02-15 23:59:59'
+      timezone: AoE
+  date: May 21-24, 2026
+  start: '2026-05-21'
+  end: '2026-05-24'
+  city: Chicago
+  country: USA
+  tags:
+    - psychology
+  fee: '$350 member / $500 non-member'
+  funding: Student poster awards and travel grants
+
+- title: APS
+  year: 2025
+  id: aps25
+  full_name: Association for Psychological Science Annual Convention
+  link: https://www.psychologicalscience.org/conventions/annual
+  event_type: conference
+  deadlines:
+    - type: paper
+      label: Submission deadline
+      date: '2024-12-02 23:59:59'
+      timezone: AoE
+  date: May 22-25, 2025
+  start: '2025-05-22'
+  end: '2025-05-25'
+  city: New York
+  country: USA
+  tags:
+    - psychology

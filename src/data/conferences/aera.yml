@@ -1,0 +1,24 @@
+- title: AERA
+  year: 2026
+  id: aera26
+  full_name: American Educational Research Association Annual Meeting
+  link: https://www.aera.net/Events-Meetings/Annual-Meeting
+  event_type: conference
+  deadlines:
+    - type: paper
+      label: Paper submission deadline
+      date: '2025-07-15 23:59:59'
+      timezone: AoE
+    - type: notification
+      label: Acceptance notification
+      date: '2025-12-01 23:59:59'
+      timezone: AoE
+  date: April 9-13, 2026
+  start: '2026-04-09'
+  end: '2026-04-13'
+  city: San Francisco
+  country: USA
+  tags:
+    - education
+  fee: '$340 member / $540 non-member'
+  funding: Graduate student travel grants available

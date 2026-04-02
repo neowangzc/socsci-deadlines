@@ -1,0 +1,45 @@
+- title: SICSS
+  year: 2025
+  id: sicss25
+  full_name: Summer Institute in Computational Social Science
+  link: https://sicss.io/
+  event_type: summer_school
+  deadlines:
+    - type: paper
+      label: Application deadline
+      date: '2025-02-28 23:59:59'
+      timezone: AoE
+    - type: notification
+      label: Acceptance notification
+      date: '2025-04-01 23:59:59'
+      timezone: AoE
+  date: June 16-27, 2025
+  start: '2025-06-16'
+  end: '2025-06-27'
+  city: Multiple locations
+  country: Worldwide
+  tags:
+    - computational-social-science
+    - multidisciplinary
+  fee: Free (most sites)
+  funding: Full funding including travel and accommodation at most partner sites
+
+- title: SICSS
+  year: 2026
+  id: sicss26
+  full_name: Summer Institute in Computational Social Science
+  link: https://sicss.io/
+  event_type: summer_school
+  deadlines:
+    - type: paper
+      label: Application deadline
+      date: '2026-02-28 23:59:59'
+      timezone: AoE
+  date: June 2026
+  city: Multiple locations
+  country: Worldwide
+  tags:
+    - computational-social-science
+    - multidisciplinary
+  fee: Free (most sites)
+  funding: Full funding including travel and accommodation at most partner sites

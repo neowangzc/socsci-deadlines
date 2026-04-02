@@ -1,0 +1,21 @@
+- title: ISA
+  year: 2026
+  id: isa26
+  full_name: International Sociological Association World Congress
+  link: https://www.isa-sociology.org/
+  event_type: conference
+  deadlines:
+    - type: abstract
+      label: Abstract submission deadline
+      date: '2025-09-30 23:59:59'
+      timezone: AoE
+  date: July 11-17, 2026
+  start: '2026-07-11'
+  end: '2026-07-17'
+  city: Busan
+  country: South Korea
+  tags:
+    - sociology
+    - multidisciplinary
+  fee: '$200-$400 (varies by country income level)'
+  funding: Travel grants for scholars from low-income countries

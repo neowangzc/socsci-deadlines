@@ -1,0 +1,38 @@
+- title: AEA
+  year: 2027
+  id: aea27
+  full_name: American Economic Association Annual Meeting (ASSA)
+  link: https://www.aeaweb.org/conference/
+  event_type: conference
+  deadlines:
+    - type: paper
+      label: Paper submission deadline
+      date: '2026-04-15 23:59:59'
+      timezone: AoE
+  date: January 3-5, 2027
+  start: '2027-01-03'
+  end: '2027-01-05'
+  city: Chicago
+  country: USA
+  tags:
+    - economics
+  fee: '$100 member / $200 non-member'
+
+- title: AEA
+  year: 2026
+  id: aea26
+  full_name: American Economic Association Annual Meeting (ASSA)
+  link: https://www.aeaweb.org/conference/
+  event_type: conference
+  deadlines:
+    - type: paper
+      label: Paper submission deadline
+      date: '2025-04-15 23:59:59'
+      timezone: AoE
+  date: January 3-5, 2026
+  start: '2026-01-03'
+  end: '2026-01-05'
+  city: San Francisco
+  country: USA
+  tags:
+    - economics

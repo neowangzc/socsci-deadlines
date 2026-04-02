@@ -1,0 +1,43 @@
+- title: IC2S2
+  year: 2025
+  id: ic2s225
+  full_name: International Conference on Computational Social Science
+  link: https://ic2s2.org/2025/
+  event_type: conference
+  deadlines:
+    - type: abstract
+      label: Extended abstract deadline
+      date: '2025-02-24 23:59:59'
+      timezone: AoE
+    - type: notification
+      label: Acceptance notification
+      date: '2025-04-14 23:59:59'
+      timezone: AoE
+  date: July 15-18, 2025
+  start: '2025-07-15'
+  end: '2025-07-18'
+  city: Norrköping
+  country: Sweden
+  tags:
+    - computational-social-science
+    - multidisciplinary
+  fee: '€350 regular / €200 student'
+  funding: Fee waivers for students from low-income countries
+
+- title: IC2S2
+  year: 2026
+  id: ic2s226
+  full_name: International Conference on Computational Social Science
+  link: https://ic2s2.org/
+  event_type: conference
+  deadlines:
+    - type: abstract
+      label: Extended abstract deadline
+      date: '2026-02-28 23:59:59'
+      timezone: AoE
+  date: July 2026
+  city: TBD
+  country: TBD
+  tags:
+    - computational-social-science
+    - multidisciplinary

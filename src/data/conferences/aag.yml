@@ -1,0 +1,20 @@
+- title: AAG
+  year: 2026
+  id: aag26
+  full_name: American Association of Geographers Annual Meeting
+  link: https://www.aag.org/events/aag-annual-meeting/
+  event_type: conference
+  deadlines:
+    - type: abstract
+      label: Abstract submission deadline
+      date: '2025-10-15 23:59:59'
+      timezone: AoE
+  date: March 25-29, 2026
+  start: '2026-03-25'
+  end: '2026-03-29'
+  city: Denver
+  country: USA
+  tags:
+    - geography
+  fee: '$300 member / $450 non-member'
+  funding: Student travel grants available

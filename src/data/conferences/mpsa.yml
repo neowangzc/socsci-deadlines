@@ -1,0 +1,23 @@
+- title: MPSA
+  year: 2026
+  id: mpsa26
+  full_name: Midwest Political Science Association Annual Conference
+  link: https://www.mpsanet.org/conference/
+  event_type: conference
+  deadlines:
+    - type: paper
+      label: Paper/panel proposal deadline
+      date: '2025-10-01 23:59:59'
+      timezone: AoE
+    - type: notification
+      label: Acceptance notification
+      date: '2025-12-15 23:59:59'
+      timezone: AoE
+  date: April 16-19, 2026
+  start: '2026-04-16'
+  end: '2026-04-19'
+  city: Chicago
+  country: USA
+  tags:
+    - political-science
+  fee: '$140 member'
