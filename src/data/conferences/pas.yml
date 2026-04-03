@@ -1,0 +1,41 @@
+- title: PAS
+  year: 2026
+  id: pas26
+  full_name: Population Association of Singapore Annual Conference
+  link: https://www.sgpopulation.org/pas-2026
+  deadlines:
+    - type: submission
+      label: Abstract submission deadline (extended)
+      date: '2025-12-26 23:59:59'
+      timezone: Asia/Singapore
+    - type: notification
+      label: Notification of accepted/rejected papers
+      date: '2026-01-30 23:59:59'
+      timezone: Asia/Singapore
+    - type: registration
+      label: Registration deadline for presenting authors
+      date: '2026-03-10 23:59:59'
+      timezone: Asia/Singapore
+    - type: submission
+      label: Full paper submission deadline
+      date: '2026-04-15 23:59:59'
+      timezone: Asia/Singapore
+    - type: registration
+      label: Registration closes
+      date: '2026-04-30 23:59:59'
+      timezone: Asia/Singapore
+  date: May 21-22, 2026
+  start: '2026-05-21'
+  end: '2026-05-22'
+  city: Singapore
+  country: Singapore
+  venue: Auditorium 1, Town Plaza, University Town, National University of Singapore
+  tags:
+    - sociology
+    - multidisciplinary
+  fee: >-
+    Early bird (by Mar 31): SGD 395/385 networking bundles, SGD 325/315 general bundles,
+    SGD 160-165 student/retiree bundles; standard rates apply after Mar 31.
+  funding: No travel awards for PAS 2026.
+  note: >-
+    Theme: Low Fertility and Human Development: Multidisciplinary Perspectives and Solutions.
