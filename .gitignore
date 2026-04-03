@@ -40,5 +40,6 @@ __pycache__/
 outputs/
 
 # Claude Code local settings (contains secrets)
-.claude/settings.local.jsonbun.lockb
+.claude/settings.local.json
+bun.lockb
 public/og-image.png
