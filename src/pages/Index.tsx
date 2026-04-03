@@ -10,7 +10,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { X, Globe } from "lucide-react";
 import { getAllCountries } from "@/utils/countryExtractor";
 import { sortConferencesByDeadline } from "@/utils/conferenceUtils";
-import { hasUpcomingDeadlines } from "@/utils/deadlineUtils";
+import { hasEventEnded } from "@/utils/deadlineUtils";
 
 const TAG_ORDER = [
   "sociology",
@@ -35,13 +35,13 @@ const Index = () => {
   const [selectedCountries, setSelectedCountries] = useState<Set<string>>(new Set());
   const [selectedEventTypes, setSelectedEventTypes] = useState<Set<EventType>>(new Set());
   const [searchQuery, setSearchQuery] = useState("");
-  const [showPastConferences, setShowPastConferences] = useState(true);
+  const [showPastConferences, setShowPastConferences] = useState(false);
 
   const categoryButtons = useMemo(() => {
     if (!Array.isArray(conferencesData)) return [];
 
     const relevantConferences = conferencesData.filter((conf: Conference) => {
-      if (!showPastConferences && !hasUpcomingDeadlines(conf)) return false;
+      if (!showPastConferences && hasEventEnded(conf)) return false;
       return true;
     });
 
@@ -74,7 +74,7 @@ const Index = () => {
     if (!Array.isArray(conferencesData)) return [];
 
     const filtered = conferencesData.filter((conf: Conference) => {
-      if (!showPastConferences && !hasUpcomingDeadlines(conf)) return false;
+      if (!showPastConferences && hasEventEnded(conf)) return false;
 
       const matchesTags = selectedTags.size === 0 ||
         (Array.isArray(conf.tags) && conf.tags.some(tag => selectedTags.has(tag)));
@@ -301,7 +301,7 @@ const Index = () => {
         {filteredConferences.length === 0 && (
           <div className="bg-amber-50 border border-amber-200 text-amber-800 rounded-md p-4 mb-6">
             <p className="text-center">
-              No upcoming events for the selected filters — enable "Show past events" to see previous ones
+              No matching events for the selected filters — enable "Show past events" to include ended events
             </p>
           </div>
         )}

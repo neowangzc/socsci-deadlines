@@ -1,6 +1,6 @@
 import { Conference, Deadline } from "@/types/conference";
 import { getDeadlineInLocalTime } from './dateUtils';
-import { isValid, isPast } from "date-fns";
+import { isValid, isPast, parseISO, endOfDay } from "date-fns";
 
 function isCfpDeadline(deadline: Deadline): boolean {
   return deadline.type === 'submission';
@@ -120,6 +120,20 @@ export function getPrimaryDeadline(conference: Conference): Deadline | null {
  */
 export function hasUpcomingDeadlines(conference: Conference): boolean {
   return getNextUpcomingDeadline(conference) !== null;
+}
+
+/**
+ * Check whether an event is already over.
+ * Past events are defined by event dates (end/start), not submission deadlines.
+ */
+export function hasEventEnded(conference: Conference): boolean {
+  const eventEndDate = conference.end ?? conference.start;
+  if (!eventEndDate) return false;
+
+  const parsedDate = parseISO(eventEndDate);
+  if (!isValid(parsedDate)) return false;
+
+  return isPast(endOfDay(parsedDate));
 }
 
 /**
