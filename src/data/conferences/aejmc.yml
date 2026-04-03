@@ -1,0 +1,24 @@
+- title: AEJMC
+  year: 2026
+  id: aejmc26
+  full_name: Association for Education in Journalism and Mass Communication Annual Conference
+  link: https://www.aejmc.org/aejmc-events/conference/paper-competition
+  deadlines:
+    - type: submission
+      label: Paper competition deadline
+      date: '2026-04-01 23:59:59'
+      timezone: America/Chicago
+    - type: notification
+      label: Notification of acceptance
+      date: '2026-05-20 23:59:59'
+      timezone: America/Chicago
+  date: August 05-08, 2026
+  start: '2026-08-05'
+  end: '2026-08-08'
+  city: New Orleans
+  country: USA
+  tags:
+    - communication
+    - education
+  note: >-
+    Submission system opens on January 15, 2026.

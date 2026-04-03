@@ -1,0 +1,28 @@
+- title: RC28
+  year: 2026
+  id: rc28
+  full_name: Research Committee 28 Spring Meeting
+  link: https://eventos.upo.es/137585/detail/the-conference.html
+  deadlines:
+    - type: submission
+      label: Abstract submission deadline
+      date: '2025-12-01 23:59:59'
+      timezone: AoE
+    - type: notification
+      label: Acceptance notification
+      date: '2026-01-09 23:59:59'
+      timezone: AoE
+    - type: registration
+      label: Registration deadline (all presenters)
+      date: '2026-03-31 23:59:59'
+      timezone: AoE
+  date: May 20-22, 2026
+  start: '2026-05-20'
+  end: '2026-05-22'
+  city: Seville
+  country: Spain
+  venue: Universidad Pablo de Olavide
+  tags:
+    - sociology
+  note: >-
+    Theme: This academic meeting is proposed as a pluralistic space for dialogue, collaboration and critical reflection on one of the most urgent and persistent problems of our contemporary societies: social inequality. 

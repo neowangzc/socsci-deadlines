@@ -1,0 +1,24 @@
+- title: ICA
+  year: 2026
+  id: ica26
+  full_name: International Communication Association Annual Conference
+  link: https://www.icahdq.org/event/ICA26
+  deadlines:
+    - type: submission
+      label: Submission deadline
+      date: '2025-11-03 12:00:00'
+      timezone: America/New_York
+    - type: notification
+      label: Acceptance decisions released
+      date: '2026-01-14 12:00:00'
+      timezone: America/New_York
+  date: June 04-08, 2026
+  start: '2026-06-04'
+  end: '2026-06-08'
+  city: Cape Town
+  country: South Africa
+  venue: Cape Town International Convention Center (CTICC)
+  tags:
+    - communication
+  note: >-
+    Theme: Communication and Inequalities in Context.

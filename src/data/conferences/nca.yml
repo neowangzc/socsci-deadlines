@@ -1,0 +1,23 @@
+- title: NCA
+  year: 2026
+  id: nca26
+  full_name: National Communication Association Annual Convention
+  link: https://www.natcom.org/call-for-submissions/
+  deadlines:
+    - type: submission
+      label: Call for submissions deadline
+      date: '2026-03-25 23:59:59'
+      timezone: America/Los_Angeles
+    - type: notification
+      label: Decision notification
+      date: '2026-07-15 23:59:59'
+      timezone: America/Los_Angeles
+  date: November 19-22, 2026
+  start: '2026-11-19'
+  end: '2026-11-22'
+  city: New Orleans
+  country: USA
+  tags:
+    - communication
+  note: >-
+    112th annual convention. Theme: MOVE/MENTS in Communication.

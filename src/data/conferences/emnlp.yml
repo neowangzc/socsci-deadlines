@@ -1,0 +1,28 @@
+- title: EMNLP
+  year: 2026
+  id: emnlp26
+  full_name: Conference on Empirical Methods in Natural Language Processing
+  link: https://2026.emnlp.org/
+  deadlines:
+    - type: submission
+      label: ARR submission deadline (long & short papers)
+      date: '2026-05-25 23:59:59'
+      timezone: AoE
+    - type: notification
+      label: Notification of acceptance
+      date: '2026-08-20 23:59:59'
+      timezone: AoE
+    - type: camera-ready
+      label: Camera-ready deadline
+      date: '2026-09-20 23:59:59'
+      timezone: AoE
+  date: October 24-29, 2026
+  start: '2026-10-24'
+  end: '2026-10-29'
+  city: Budapest
+  country: Hungary
+  tags:
+    - linguistics
+    - computational-social-science
+  note: >-
+    Workshop and tutorial dates are to be announced.

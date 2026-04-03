@@ -1,0 +1,24 @@
+- title: INAS
+  year: 2026
+  id: inas26
+  full_name: 18th Annual Conference of the International Network of Analytical Sociology
+  link: https://www.nuffield.ox.ac.uk/our-research/sociology/inas-conference-2026/
+  deadlines:
+    - type: submission
+      label: Abstract submission deadline
+      date: '2026-02-01 23:59:59'
+      timezone: AoE
+    - type: registration
+      label: Registration deadline (all presenters)
+      date: '2026-04-15 23:59:59'
+      timezone: AoE
+  date: July 01-03, 2026
+  start: '2026-07-01'
+  end: '2026-07-03'
+  city: Oxford
+  country: UK
+  venue: Nuffield College
+  tags:
+    - sociology
+  note: >-
+    We look forward to welcoming you in Oxford. If you have any questions, please send us an email at inas2026oxford@gmail.com.

@@ -1,0 +1,28 @@
+- title: WWW
+  year: 2026
+  id: www26
+  full_name: The Web Conference
+  link: https://www2026.thewebconf.org/
+  deadlines:
+    - type: submission
+      label: Research & Industry abstract deadline
+      date: '2025-09-30 23:59:59'
+      timezone: AoE
+    - type: submission
+      label: Research & Industry paper deadline
+      date: '2025-10-07 23:59:59'
+      timezone: AoE
+    - type: notification
+      label: Paper notification
+      date: '2026-01-13 23:59:59'
+      timezone: AoE
+  date: June 29-July 03, 2026
+  start: '2026-06-29'
+  end: '2026-07-03'
+  city: Dubai
+  country: UAE
+  tags:
+    - computational-social-science
+    - multidisciplinary
+  note: >-
+    Workshops/tutorials/web4all are on June 29-30; main conference is July 1-3.

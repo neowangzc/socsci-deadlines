@@ -30,26 +30,3 @@
     Submission portal opens Nov 3, 2025. Deadline is 9:00 PM Eastern.
     Early bird registration deadline: June 15, 2026.
 
-- title: ASA
-  year: 2025
-  id: asa25
-  full_name: American Sociological Association Annual Meeting
-  link: https://www.asanet.org/2025-annual-meeting/
-  deadlines:
-    - type: submission
-      label: Paper/abstract submission deadline
-      date: '2025-02-25 21:00:00'
-      timezone: America/New_York
-  date: August 8-12, 2025
-  start: '2025-08-08'
-  end: '2025-08-12'
-  city: Chicago
-  country: USA
-  venue: Hyatt Regency Chicago & Swissotel Chicago
-  tags:
-    - sociology
-  fee: '$271 regular member / $145 student/concessionary member'
-  funding: Annual Meeting Travel Fund awards and Student Forum Travel Awards available
-  note: >-
-    Theme: "Reimagining the Future of Work" (President: Adia M. Harvey Wingfield).
-    120th ASA Annual Meeting.

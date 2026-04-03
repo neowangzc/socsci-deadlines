@@ -1,0 +1,25 @@
+- title: CSCW
+  year: 2026
+  id: cscw26
+  full_name: ACM Conference on Computer-Supported Cooperative Work and Social Computing
+  link: https://cscw.acm.org/2026/
+  deadlines:
+    - type: submission
+      label: New paper submission deadline (May 2025 cycle)
+      date: '2025-05-14 12:00:00'
+      timezone: America/New_York
+    - type: submission
+      label: Major revision resubmission deadline
+      date: '2026-01-13 23:59:59'
+      timezone: AoE
+  date: October 10-14, 2026
+  start: '2026-10-10'
+  end: '2026-10-14'
+  city: Salt Lake City
+  country: USA
+  venue: Salt Lake Marriott Downtown City Creek
+  tags:
+    - computational-social-science
+    - multidisciplinary
+  note: >-
+    CSCW 2026 has one new-paper cycle in May 2025 with tiered revise-and-resubmit rounds.
